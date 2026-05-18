@@ -40,10 +40,13 @@
         <div class="container nav-inner">
             <a class="catalog-link" href="index.php">Каталог книг</a>
             <a href="index.php">Головна</a>
+            <a href="about.php">Про магазин</a>
+            <a href="delivery.php">Доставка та оплата</a>
             <?php $categories = get_categories(); ?>
             <?php foreach ($categories as $category): ?>
                 <a href="category.php?category_id=<?= $category['id']; ?>"><?= e($category['title']); ?></a>
             <?php endforeach; ?>
+            <a href="cart.php">Кошик</a>
             <a href="login/index.php">Адмінка</a>
         </div>
     </nav>
