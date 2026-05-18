@@ -20,7 +20,11 @@
                 <p class="price"><?= number_format($book['price'], 2, '.', ' '); ?> грн</p>
                 <p><?= nl2br(e($book['description'])); ?></p>
                 <p><strong>Дата додавання:</strong> <?= date('d.m.Y', strtotime($book['created_at'])); ?></p>
-                <a class="btn" href="index.php">Повернутися назад</a>
+                <form class="cart-form" action="add-to-cart.php" method="post">
+                    <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
+                    <button class="btn" type="submit">Додати у кошик</button>
+                    <a class="btn btn-light" href="index.php">Повернутися назад</a>
+                </form>
             </div>
         </article>
     <?php else: ?>

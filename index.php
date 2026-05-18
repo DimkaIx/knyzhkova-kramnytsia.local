@@ -41,6 +41,10 @@
                             <strong><?= number_format($book['price'], 2, '.', ' '); ?> грн</strong>
                             <a class="btn btn-small" href="book.php?book_id=<?= $book['id']; ?>">Детальніше</a>
                         </div>
+                        <form class="cart-form" action="add-to-cart.php" method="post">
+                            <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
+                            <button class="btn btn-small btn-cart" type="submit">У кошик</button>
+                        </form>
                     </div>
                 </article>
             <?php endforeach; ?>

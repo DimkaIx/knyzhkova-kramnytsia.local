@@ -387,6 +387,40 @@ a {
     background: #fff7f1;
 }
 
+.cart-form {
+    margin-top: 12px;
+}
+
+.btn-cart {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.cart-page {
+    max-width: 100%;
+}
+
+.quantity-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.quantity-form input {
+    width: 70px;
+    border: 1px solid #cbd1c3;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin: 18px 0;
+    font-size: 22px;
+}
+
 .form-page {
     display: flex;
     align-items: center;

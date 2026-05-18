@@ -123,6 +123,19 @@
         mysqli_query($conn, $sql);
     }
 
+    function cart_count() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $count = 0;
+        foreach (($_SESSION['cart'] ?? []) as $quantity) {
+            $count += $quantity;
+        }
+
+        return $count;
+    }
+
     function short_text($text, $length = 140) {
         if (mb_strlen($text, 'utf-8') <= $length) {
             return $text;

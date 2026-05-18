@@ -46,7 +46,7 @@
             <?php foreach ($categories as $category): ?>
                 <a href="category.php?category_id=<?= $category['id']; ?>"><?= e($category['title']); ?></a>
             <?php endforeach; ?>
-            <a href="cart.php">Кошик</a>
+            <a href="cart.php">Кошик (<?= cart_count(); ?>)</a>
             <a href="login/index.php">Адмінка</a>
         </div>
     </nav>
