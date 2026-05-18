@@ -1,14 +1,6 @@
 <?php
     include_once '../function.php';
-    session_start();
-
-    $login = 'admin';
-    $password = '12345';
-
-    if (($_SESSION['login'] ?? '') !== $login || ($_SESSION['password'] ?? '') !== $password) {
-        header('location: ../login/index.php');
-        exit();
-    }
+    check_admin();
 ?>
 <!doctype html>
 <html lang="uk">
@@ -20,9 +12,12 @@
 </head>
 <body>
 <header class="site-header">
-    <div class="container header-inner">
-        <a class="logo" href="index.php">Адмін-панель</a>
-        <nav class="menu">
+    <div class="container header-main admin-header">
+        <a class="logo" href="index.php">
+            <span class="logo-mark">А</span>
+            <span>Адмін<br>панель</span>
+        </a>
+        <nav class="admin-menu">
             <a href="../index.php">На сайт</a>
             <a href="add-book.php">Додати книгу</a>
             <a href="logout.php">Вийти</a>
@@ -47,12 +42,16 @@
         <?php foreach ($books as $book): ?>
             <tr>
                 <td><?= $book['id']; ?></td>
-                <td><?= htmlspecialchars($book['title']); ?></td>
-                <td><?= htmlspecialchars($book['author']); ?></td>
+                <td><?= e($book['title']); ?></td>
+                <td><?= e($book['author']); ?></td>
                 <td><?= number_format($book['price'], 2, '.', ' '); ?> грн</td>
                 <td class="admin-actions">
                     <a class="btn btn-warning" href="edit-book.php?book_id=<?= $book['id']; ?>">Редагувати</a>
-                    <a class="btn btn-danger" href="delete-book.php?book_id=<?= $book['id']; ?>">Видалити</a>
+                    <form action="delete-book.php" method="post">
+                        <?= csrf_field(); ?>
+                        <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
+                        <button class="btn btn-danger" type="submit">Видалити</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>

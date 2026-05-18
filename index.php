@@ -5,7 +5,7 @@
         <h2>Каталог</h2>
         <?php foreach ($categories as $category): ?>
             <a href="category.php?category_id=<?= $category['id']; ?>">
-                <?= htmlspecialchars($category['title']); ?>
+                <?= e($category['title']); ?>
             </a>
         <?php endforeach; ?>
     </aside>
@@ -21,22 +21,22 @@
         </div>
 
         <div class="section-heading" id="books">
-            <h2>Популярні книги</h2>
-            <span>Усі товари з бази даних</span>
+            <h2><?= $search ? 'Результати пошуку' : 'Популярні книги'; ?></h2>
+            <span><?= $search ? 'Запит: ' . e($search) : 'Усі товари з бази даних'; ?></span>
         </div>
 
         <div class="book-grid">
-            <?php $books = get_books(); ?>
+            <?php $books = get_books($search); ?>
             <?php foreach ($books as $book): ?>
                 <article class="book-card">
                     <a class="book-image" href="book.php?book_id=<?= $book['id']; ?>">
-                        <img src="<?= htmlspecialchars($book['image']); ?>" alt="<?= htmlspecialchars($book['title']); ?>">
+                        <img src="<?= e($book['image']); ?>" alt="<?= e($book['title']); ?>">
                     </a>
                     <div class="book-card-body">
-                        <p class="category-name"><?= htmlspecialchars($book['category_title']); ?></p>
-                        <h3><?= htmlspecialchars($book['title']); ?></h3>
-                        <p class="author"><?= htmlspecialchars($book['author']); ?></p>
-                        <p class="book-description"><?= htmlspecialchars(short_text($book['description'], 95)); ?></p>
+                        <p class="category-name"><?= e($book['category_title']); ?></p>
+                        <h3><?= e($book['title']); ?></h3>
+                        <p class="author"><?= e($book['author']); ?></p>
+                        <p class="book-description"><?= e(short_text($book['description'], 95)); ?></p>
                         <div class="card-bottom">
                             <strong><?= number_format($book['price'], 2, '.', ' '); ?> грн</strong>
                             <a class="btn btn-small" href="book.php?book_id=<?= $book['id']; ?>">Детальніше</a>
@@ -45,6 +45,10 @@
                 </article>
             <?php endforeach; ?>
         </div>
+
+        <?php if (!$books): ?>
+            <p>За вашим запитом нічого не знайдено.</p>
+        <?php endif; ?>
     </section>
 </main>
 

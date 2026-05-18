@@ -1,5 +1,6 @@
 <?php
     include_once 'function.php';
+    $search = trim($_GET['search'] ?? '');
 ?>
 <!doctype html>
 <html lang="uk">
@@ -25,7 +26,7 @@
         </a>
 
         <form class="search-form" action="index.php" method="get">
-            <input type="text" name="search" placeholder="Пошук книг, авторів, категорій">
+            <input type="text" name="search" value="<?= e($search); ?>" placeholder="Пошук книг, авторів, категорій">
             <button type="submit">Знайти</button>
         </form>
 
@@ -41,7 +42,7 @@
             <a href="index.php">Головна</a>
             <?php $categories = get_categories(); ?>
             <?php foreach ($categories as $category): ?>
-                <a href="category.php?category_id=<?= $category['id']; ?>"><?= htmlspecialchars($category['title']); ?></a>
+                <a href="category.php?category_id=<?= $category['id']; ?>"><?= e($category['title']); ?></a>
             <?php endforeach; ?>
             <a href="login/index.php">Адмінка</a>
         </div>

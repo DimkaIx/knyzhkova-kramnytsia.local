@@ -1,11 +1,6 @@
 <?php
     include_once '../function.php';
-    session_start();
-
-    if (($_SESSION['login'] ?? '') !== 'admin' || ($_SESSION['password'] ?? '') !== '12345') {
-        header('location: ../login/index.php');
-        exit();
-    }
+    check_admin();
 ?>
 <!doctype html>
 <html lang="uk">
@@ -19,6 +14,7 @@
     <div class="admin-panel">
         <h1>Додавання книги</h1>
         <form action="check-book.php" method="post" enctype="multipart/form-data">
+            <?= csrf_field(); ?>
             <div class="form-row">
                 <label>Назва книги</label>
                 <input type="text" name="title" required>
@@ -44,13 +40,13 @@
                 <select name="category_id" required>
                     <option value="">Оберіть категорію</option>
                     <?php foreach (get_categories() as $category): ?>
-                        <option value="<?= $category['id']; ?>"><?= htmlspecialchars($category['title']); ?></option>
+                        <option value="<?= $category['id']; ?>"><?= e($category['title']); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-row">
                 <label>Обкладинка</label>
-                <input type="file" name="image">
+                <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif,.webp">
             </div>
             <button class="btn" type="submit">Додати книгу</button>
             <a class="btn btn-light" href="index.php">Назад</a>

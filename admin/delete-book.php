@@ -1,13 +1,9 @@
 <?php
     include_once '../function.php';
-    session_start();
+    check_admin();
+    check_csrf();
 
-    if (($_SESSION['login'] ?? '') !== 'admin' || ($_SESSION['password'] ?? '') !== '12345') {
-        header('location: ../login/index.php');
-        exit();
-    }
-
-    $book_id = $_GET['book_id'] ?? 0;
+    $book_id = $_POST['book_id'] ?? 0;
     if (!is_numeric($book_id)) {
         exit('Невірний номер книги');
     }

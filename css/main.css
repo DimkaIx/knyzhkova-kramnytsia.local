@@ -422,6 +422,24 @@ a {
     gap: 10px;
 }
 
+.admin-header {
+    grid-template-columns: 230px 1fr;
+}
+
+.admin-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.admin-menu a {
+    border-radius: 5px;
+    padding: 9px 12px;
+    color: #fff;
+    background: #28313d;
+}
+
 @media (max-width: 960px) {
     .header-main,
     .shop-layout,

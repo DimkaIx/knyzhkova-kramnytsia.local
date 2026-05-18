@@ -1,19 +1,9 @@
 <?php
-    include_once '../conf.php';
-    session_start();
+    include_once '../function.php';
+    check_admin();
+    check_csrf();
 
-    if (($_SESSION['login'] ?? '') !== 'admin' || ($_SESSION['password'] ?? '') !== '12345') {
-        header('location: ../login/index.php');
-        exit();
-    }
-
-    if (isset($_FILES['image']) && $_FILES['image']['tmp_name'] != '') {
-        $file_name = time() . '_' . basename($_FILES['image']['name']);
-        move_uploaded_file($_FILES['image']['tmp_name'], '../assets/uploads/' . $file_name);
-        $image = 'assets/uploads/' . $file_name;
-    } else {
-        $image = 'assets/no-image.svg';
-    }
+    $image = upload_book_image($_FILES['image'] ?? null);
 
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $author = mysqli_real_escape_string($conn, $_POST['author']);

@@ -1,11 +1,6 @@
 <?php
     include_once '../function.php';
-    session_start();
-
-    if (($_SESSION['login'] ?? '') !== 'admin' || ($_SESSION['password'] ?? '') !== '12345') {
-        header('location: ../login/index.php');
-        exit();
-    }
+    check_admin();
 
     $book_id = $_GET['book_id'] ?? 0;
     if (!is_numeric($book_id)) {
@@ -27,41 +22,42 @@
         <h1>Редагування книги</h1>
         <?php if ($book): ?>
             <form action="update-book.php" method="post" enctype="multipart/form-data">
+                <?= csrf_field(); ?>
                 <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
-                <input type="hidden" name="old_image" value="<?= htmlspecialchars($book['image']); ?>">
+                <input type="hidden" name="old_image" value="<?= e($book['image']); ?>">
                 <div class="form-row">
                     <label>Назва книги</label>
-                    <input type="text" name="title" value="<?= htmlspecialchars($book['title']); ?>" required>
+                    <input type="text" name="title" value="<?= e($book['title']); ?>" required>
                 </div>
                 <div class="form-row">
                     <label>Автор</label>
-                    <input type="text" name="author" value="<?= htmlspecialchars($book['author']); ?>" required>
+                    <input type="text" name="author" value="<?= e($book['author']); ?>" required>
                 </div>
                 <div class="form-row">
                     <label>Опис книги</label>
-                    <textarea name="description" required><?= htmlspecialchars($book['description']); ?></textarea>
+                    <textarea name="description" required><?= e($book['description']); ?></textarea>
                 </div>
                 <div class="form-row">
                     <label>Ціна</label>
-                    <input type="number" name="price" step="0.01" min="0" value="<?= $book['price']; ?>" required>
+                    <input type="number" name="price" step="0.01" min="0" value="<?= e($book['price']); ?>" required>
                 </div>
                 <div class="form-row">
                     <label>Дата додавання</label>
-                    <input type="date" name="created_at" value="<?= $book['created_at']; ?>" required>
+                    <input type="date" name="created_at" value="<?= e($book['created_at']); ?>" required>
                 </div>
                 <div class="form-row">
                     <label>Категорія</label>
                     <select name="category_id" required>
                         <?php foreach (get_categories() as $category): ?>
                             <option value="<?= $category['id']; ?>" <?php if ($category['id'] == $book['category_id']) echo 'selected'; ?>>
-                                <?= htmlspecialchars($category['title']); ?>
+                                <?= e($category['title']); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-row">
                     <label>Нова обкладинка</label>
-                    <input type="file" name="image">
+                    <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif,.webp">
                 </div>
                 <button class="btn" type="submit">Оновити книгу</button>
                 <a class="btn btn-light" href="index.php">Назад</a>

@@ -12,22 +12,22 @@
 
 <main class="container content-page">
     <?php if ($category): ?>
-        <h1><?= htmlspecialchars($category['title']); ?></h1>
-        <p class="lead"><?= htmlspecialchars($category['description']); ?></p>
+        <h1><?= e($category['title']); ?></h1>
+        <p class="lead"><?= e($category['description']); ?></p>
 
         <div class="book-grid">
             <?php foreach ($books as $book): ?>
                 <article class="book-card">
-                    <a href="book.php?book_id=<?= $book['id']; ?>">
-                        <img src="<?= htmlspecialchars($book['image']); ?>" alt="<?= htmlspecialchars($book['title']); ?>">
+                    <a class="book-image" href="book.php?book_id=<?= $book['id']; ?>">
+                        <img src="<?= e($book['image']); ?>" alt="<?= e($book['title']); ?>">
                     </a>
                     <div class="book-card-body">
-                        <h3><?= htmlspecialchars($book['title']); ?></h3>
-                        <p class="author"><?= htmlspecialchars($book['author']); ?></p>
-                        <p><?= htmlspecialchars(short_text($book['description'])); ?></p>
+                        <h3><?= e($book['title']); ?></h3>
+                        <p class="author"><?= e($book['author']); ?></p>
+                        <p class="book-description"><?= e(short_text($book['description'])); ?></p>
                         <div class="card-bottom">
                             <strong><?= number_format($book['price'], 2, '.', ' '); ?> грн</strong>
-                            <a class="btn" href="book.php?book_id=<?= $book['id']; ?>">Детальніше</a>
+                            <a class="btn btn-small" href="book.php?book_id=<?= $book['id']; ?>">Детальніше</a>
                         </div>
                     </div>
                 </article>

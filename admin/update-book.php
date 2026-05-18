@@ -1,21 +1,11 @@
 <?php
-    include_once '../conf.php';
-    session_start();
-
-    if (($_SESSION['login'] ?? '') !== 'admin' || ($_SESSION['password'] ?? '') !== '12345') {
-        header('location: ../login/index.php');
-        exit();
-    }
+    include_once '../function.php';
+    check_admin();
+    check_csrf();
 
     $book_id = mysqli_real_escape_string($conn, $_POST['book_id']);
-
-    if (isset($_FILES['image']) && $_FILES['image']['tmp_name'] != '') {
-        $file_name = time() . '_' . basename($_FILES['image']['name']);
-        move_uploaded_file($_FILES['image']['tmp_name'], '../assets/uploads/' . $file_name);
-        $image = 'assets/uploads/' . $file_name;
-    } else {
-        $image = mysqli_real_escape_string($conn, $_POST['old_image']);
-    }
+    $old_image = mysqli_real_escape_string($conn, $_POST['old_image']);
+    $image = upload_book_image($_FILES['image'] ?? null, $old_image);
 
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $author = mysqli_real_escape_string($conn, $_POST['author']);
