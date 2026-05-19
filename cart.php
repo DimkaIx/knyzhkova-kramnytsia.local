@@ -62,8 +62,10 @@
                 <span>Разом:</span>
                 <strong><?= number_format($total, 2, '.', ' '); ?> грн</strong>
             </div>
-            <p>Оформлення замовлення у цьому навчальному проєкті поки не підключено.</p>
-            <a class="btn" href="index.php">Продовжити покупки</a>
+            <div class="cart-actions">
+                <a class="btn btn-light" href="index.php">Продовжити покупки</a>
+                <a class="btn" href="checkout.php">Оформити замовлення</a>
+            </div>
         <?php else: ?>
             <div class="empty-cart">
                 <h2>Ваш кошик порожній</h2>

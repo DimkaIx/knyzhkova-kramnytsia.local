@@ -421,6 +421,29 @@ a {
     font-size: 22px;
 }
 
+.cart-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.checkout-page {
+    max-width: 760px;
+}
+
+.checkout-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 20px 0;
+    padding: 16px;
+    border-radius: 6px;
+    color: #26323f;
+    background: #fff7f1;
+    font-size: 20px;
+}
+
 .form-page {
     display: flex;
     align-items: center;
