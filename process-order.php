@@ -17,10 +17,15 @@
         'total' => 0,
     ];
 
+    if ($order['name'] === '' || $order['phone'] === '' || $order['email'] === '' || $order['address'] === '') {
+        header('location: checkout.php');
+        exit();
+    }
+
     foreach ($cart as $book_id => $quantity) {
         $book = get_book_by_id($book_id);
         if ($book) {
-            $order['total'] += $book['price'] * $quantity;
+            $order['total'] += $book['price'] * (int)$quantity;
         }
     }
 
@@ -28,3 +33,4 @@
     unset($_SESSION['cart']);
 
     header('location: order-success.php');
+    exit();

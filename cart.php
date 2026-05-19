@@ -8,8 +8,8 @@
     foreach ($cart as $book_id => $quantity) {
         $book = get_book_by_id($book_id);
         if ($book) {
-            $book['quantity'] = $quantity;
-            $book['sum'] = $book['price'] * $quantity;
+            $book['quantity'] = (int)$quantity;
+            $book['sum'] = $book['price'] * $book['quantity'];
             $total += $book['sum'];
             $cart_books[] = $book;
         }
@@ -41,6 +41,7 @@
                         <td><?= number_format($book['price'], 2, '.', ' '); ?> грн</td>
                         <td>
                             <form class="quantity-form" action="update-cart.php" method="post">
+                                <?= csrf_field(); ?>
                                 <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
                                 <input type="number" name="quantity" value="<?= $book['quantity']; ?>" min="1" max="20">
                                 <button class="btn btn-small" type="submit">Оновити</button>
@@ -48,7 +49,8 @@
                         </td>
                         <td><?= number_format($book['sum'], 2, '.', ' '); ?> грн</td>
                         <td>
-                            <form action="remove-from-cart.php" method="post" data-confirm="Видалити книгу з кошика?">
+                            <form action="remove-from-cart.php" method="post">
+                                <?= csrf_field(); ?>
                                 <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
                                 <button class="btn btn-small btn-danger" type="submit">Видалити</button>
                             </form>

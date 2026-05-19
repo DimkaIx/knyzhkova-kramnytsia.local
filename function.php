@@ -1,6 +1,10 @@
 <?php
     include_once 'conf.php';
 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     function e($value) {
         return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
     }
@@ -17,10 +21,6 @@
     }
 
     function csrf_token() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
@@ -33,10 +33,6 @@
     }
 
     function check_csrf() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
             exit('Помилка безпеки: неправильний CSRF-токен');
         }
@@ -71,23 +67,51 @@
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function get_books($search = '') {
+    function get_books($search = '', $limit = null, $offset = 0) {
         global $conn;
+        $search = trim($search);
         $sql = "SELECT books.*, categories.title AS category_title
                 FROM books
                 LEFT JOIN categories ON books.category_id = categories.id";
 
-        if ($search != '') {
+        if ($search !== '') {
             $search = mysqli_real_escape_string($conn, $search);
-            $sql .= " WHERE books.title LIKE '%$search%'
-                      OR books.author LIKE '%$search%'
-                      OR books.description LIKE '%$search%'
-                      OR categories.title LIKE '%$search%'";
+            $sql .= " WHERE books.title LIKE '%" . $search . "%'
+                      OR books.author LIKE '%" . $search . "%'
+                      OR books.description LIKE '%" . $search . "%'
+                      OR categories.title LIKE '%" . $search . "%'";
         }
 
         $sql .= " ORDER BY books.id DESC";
+
+        if ($limit !== null) {
+            $limit = (int)$limit;
+            $offset = (int)$offset;
+            $sql .= " LIMIT " . $limit . " OFFSET " . $offset;
+        }
+
         $result = mysqli_query($conn, $sql);
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function count_books($search = '') {
+        global $conn;
+        $search = trim($search);
+        $sql = "SELECT COUNT(*) AS total
+                FROM books
+                LEFT JOIN categories ON books.category_id = categories.id";
+
+        if ($search !== '') {
+            $search = mysqli_real_escape_string($conn, $search);
+            $sql .= " WHERE books.title LIKE '%" . $search . "%'
+                      OR books.author LIKE '%" . $search . "%'
+                      OR books.description LIKE '%" . $search . "%'
+                      OR categories.title LIKE '%" . $search . "%'";
+        }
+
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return (int)$row['total'];
     }
 
     function get_book_by_id($book_id) {
@@ -125,13 +149,10 @@
     }
 
     function cart_count() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         $count = 0;
+
         foreach (($_SESSION['cart'] ?? []) as $quantity) {
-            $count += $quantity;
+            $count += (int)$quantity;
         }
 
         return $count;

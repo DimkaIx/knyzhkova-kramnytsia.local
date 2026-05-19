@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    include_once 'function.php';
+    check_csrf();
 
     $book_id = $_POST['book_id'] ?? 0;
 
@@ -8,3 +9,4 @@
     }
 
     header('location: cart.php');
+    exit();

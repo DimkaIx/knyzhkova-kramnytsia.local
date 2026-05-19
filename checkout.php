@@ -7,7 +7,7 @@
     foreach ($cart as $book_id => $quantity) {
         $book = get_book_by_id($book_id);
         if ($book) {
-            $total += $book['price'] * $quantity;
+            $total += $book['price'] * (int)$quantity;
         }
     }
 ?>
@@ -17,7 +17,7 @@
         <h1>Оформлення замовлення</h1>
 
         <?php if ($cart && $total > 0): ?>
-            <p>Заповніть коротку форму. У цьому навчальному проєкті замовлення не відправляється на пошту, а тільки показує приклад роботи форми.</p>
+            <p>Заповніть коротку форму. У навчальному проєкті замовлення зберігається у поточній сесії й показує приклад роботи форми.</p>
 
             <form action="process-order.php" method="post">
                 <?= csrf_field(); ?>
