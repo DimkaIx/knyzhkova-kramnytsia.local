@@ -51,7 +51,11 @@
                 <td><?= number_format($book['price'], 2, '.', ' '); ?> грн</td>
                 <td class="admin-actions">
                     <a class="btn btn-warning" href="edit-book.php?book_id=<?= $book['id']; ?>">Редагувати</a>
-                    <a class="btn btn-danger js-delete-link" href="delete-book.php?book_id=<?= $book['id']; ?>">Видалити</a>
+                    <form class="delete-form js-delete-form" action="delete-book.php" method="post">
+                        <?= csrf_field(); ?>
+                        <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
+                        <button class="btn btn-danger" type="submit">Видалити</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>

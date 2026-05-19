@@ -34,6 +34,7 @@
             </div>
 
             <form class="admin-edit-form" action="update-book.php" method="post" enctype="multipart/form-data">
+                <?= csrf_field(); ?>
                 <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
                 <input type="hidden" name="old_image" value="<?= htmlspecialchars($book['image']); ?>">
                 <input type="hidden" name="created_at" value="<?= $book['created_at']; ?>">

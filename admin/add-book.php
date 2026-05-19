@@ -18,6 +18,7 @@
     <div class="admin-panel">
         <h1>Додавання книги</h1>
         <form action="check-book.php" method="post" enctype="multipart/form-data">
+            <?= csrf_field(); ?>
             <div class="form-row">
                 <label>Назва книги</label>
                 <input type="text" name="title" required>
