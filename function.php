@@ -81,6 +81,7 @@
             $search = mysqli_real_escape_string($conn, $search);
             $sql .= " WHERE books.title LIKE '%$search%'
                       OR books.author LIKE '%$search%'
+                      OR books.description LIKE '%$search%'
                       OR categories.title LIKE '%$search%'";
         }
 

@@ -47,7 +47,7 @@
                 <td><?= number_format($book['price'], 2, '.', ' '); ?> грн</td>
                 <td class="admin-actions">
                     <a class="btn btn-warning" href="edit-book.php?book_id=<?= $book['id']; ?>">Редагувати</a>
-                    <form action="delete-book.php" method="post">
+                    <form action="delete-book.php" method="post" data-confirm="Видалити цю книгу з каталогу?">
                         <?= csrf_field(); ?>
                         <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
                         <button class="btn btn-danger" type="submit">Видалити</button>
@@ -59,5 +59,6 @@
     </table>
     <a class="btn" href="add-book.php">Додати нову книгу</a>
 </main>
+<script src="../js/main.js"></script>
 </body>
 </html>

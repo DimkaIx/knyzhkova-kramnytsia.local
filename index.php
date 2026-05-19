@@ -25,8 +25,10 @@
             <span><?= $search ? 'Запит: ' . e($search) : 'Усі товари з бази даних'; ?></span>
         </div>
 
+        <?php $books = get_books($search); ?>
+
+        <?php if ($books): ?>
         <div class="book-grid">
-            <?php $books = get_books($search); ?>
             <?php foreach ($books as $book): ?>
                 <article class="book-card">
                     <a class="book-image" href="book.php?book_id=<?= $book['id']; ?>">
@@ -49,9 +51,12 @@
                 </article>
             <?php endforeach; ?>
         </div>
-
-        <?php if (!$books): ?>
-            <p>За вашим запитом нічого не знайдено.</p>
+        <?php else: ?>
+            <div class="empty-state">
+                <h3>Книги не знайдено</h3>
+                <p>Спробуйте змінити запит або переглянути каталог за категоріями.</p>
+                <a class="btn" href="index.php">Показати всі книги</a>
+            </div>
         <?php endif; ?>
     </section>
 </main>

@@ -48,7 +48,7 @@
                         </td>
                         <td><?= number_format($book['sum'], 2, '.', ' '); ?> грн</td>
                         <td>
-                            <form action="remove-from-cart.php" method="post">
+                            <form action="remove-from-cart.php" method="post" data-confirm="Видалити книгу з кошика?">
                                 <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
                                 <button class="btn btn-small btn-danger" type="submit">Видалити</button>
                             </form>

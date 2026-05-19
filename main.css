@@ -323,25 +323,6 @@ a {
     background: #e9ecef;
 }
 
-.empty-state {
-    padding: 32px;
-    border: 1px solid #e1e3e6;
-    border-radius: 6px;
-    background: #fff;
-    text-align: center;
-}
-
-.empty-state h3 {
-    margin: 0 0 8px;
-    color: #26323f;
-    font-size: 24px;
-}
-
-.empty-state p {
-    margin: 0 0 18px;
-    color: #5b6673;
-}
-
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -404,63 +385,6 @@ a {
     border: 1px dashed #f47b20;
     border-radius: 6px;
     background: #fff7f1;
-}
-
-.cart-form {
-    margin-top: 12px;
-}
-
-.btn-cart {
-    width: 100%;
-    margin-top: 4px;
-}
-
-.cart-page {
-    max-width: 100%;
-}
-
-.quantity-form {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.quantity-form input {
-    width: 70px;
-    border: 1px solid #cbd1c3;
-    border-radius: 5px;
-    padding: 8px;
-}
-
-.cart-total {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin: 18px 0;
-    font-size: 22px;
-}
-
-.cart-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.checkout-page {
-    max-width: 760px;
-}
-
-.checkout-total {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin: 20px 0;
-    padding: 16px;
-    border-radius: 6px;
-    color: #26323f;
-    background: #fff7f1;
-    font-size: 20px;
 }
 
 .form-page {
