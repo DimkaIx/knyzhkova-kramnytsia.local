@@ -159,9 +159,17 @@
     }
 
     function short_text($text, $length = 140) {
-        if (mb_strlen($text, 'utf-8') <= $length) {
+        if (function_exists('mb_strlen') && function_exists('mb_substr')) {
+            if (mb_strlen($text, 'utf-8') <= $length) {
+                return $text;
+            }
+
+            return mb_substr($text, 0, $length, 'utf-8') . '...';
+        }
+
+        if (strlen($text) <= $length) {
             return $text;
         }
 
-        return mb_substr($text, 0, $length, 'utf-8') . '...';
+        return substr($text, 0, $length) . '...';
     }
